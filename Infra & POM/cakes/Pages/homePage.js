@@ -1,5 +1,5 @@
 const SeleniumInfra = require("../Infra/SeleniumInfra");
-
+const moment = require('moment');
 
 class HomePage {
     constructor(url) {
@@ -11,15 +11,17 @@ class HomePage {
         await this.infra.getUrl(this.url);
     }
 
+    async closeHomePage(){
+        await this.infra.close();
+    }
+
     async search(input) {
         try {
             await this.infra.write(input, "inputSearch");
             await this.infra.clickElement("inputSearchSubmit");
-            return await this.infra.URLvalidation(input.toLowerCase());
+            return await this.infra.URLvalidation(input.toLowerCase()+".html");
         } catch (error) {
             console.error(error);
-        } finally {
-            await this.infra.close();
         }
     }
 
@@ -91,9 +93,46 @@ class HomePage {
 
         } catch (error) {
             console.error(error);
-        } finally {
-            await this.infra.close();
         }
+    }
+
+    async validateDay(){
+        const currentDay = moment().format('dddd');
+        console.log(currentDay);
+        try {
+            const colorE = await this.infra.findElementBy(`//th[contains(text(),'${currentDay}')]`,"xpath");
+            const text = await this.infra.getTextFromElement(undefined,undefined,colorE);
+            console.log(text);
+            const color = await colorE.getCssValue('color');
+            if(color === "rgba(33, 37, 41, 1)"){
+                return false;
+            }
+            return true;
+        } catch (error) {
+            return false;
+        }
+       
+
+    //    dayShouldBeSelected.ge
+    }
+
+    async visitUsToday(){
+        try{
+            await this.infra.clickElement("//button[contains(text(),'Visit Us Today!')]","xpath");
+            const isStorPage = await this.infra.URLvalidation("store.html");
+
+            if(!isStorPage){
+                return Promise.reject("Clicked on 'Visit Us',but didnot get to store page");
+            }
+
+            const isValidDay = await this.validateDay();
+
+            console.log("isValidDay : "+isValidDay);
+
+        }catch(e){
+            console.error(e);
+        }
+        
     }
 }
 

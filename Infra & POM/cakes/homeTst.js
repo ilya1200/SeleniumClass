@@ -5,6 +5,7 @@ async function searchTestHomePage() {
     const home = new HomePage("https://cakes-automation-course.herokuapp.com/")
     await home.visitHomePage();
     console.log("result: ", await home.search("about"));
+    await home.closeHomePage();
 }
 
 async function advancedsearchTest() {
@@ -18,10 +19,15 @@ async function advancedsearchTest() {
     const searchWord = "amazing cake";
     const date = "26/09/2019";
     await home.advancedSearch(cakeTypes, cakeRates, date, searchWord, true);
-
-
-    console.log("result: ");
+    await home.closeHomePage();
 }
 
+async function visitUsTest(){
+    const home = new HomePage("https://cakes-automation-course.herokuapp.com/");
+    await home.visitHomePage();
+    await home.visitUsToday()
+    await home.closeHomePage();
+}
 // searchTestHomePage()
-advancedsearchTest()
+// advancedsearchTest()
+visitUsTest()
