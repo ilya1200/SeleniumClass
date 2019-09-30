@@ -78,7 +78,8 @@ class SeleniumInfra {
 
     async isElementExists(locator = "", locatorType = "id", fromElement = null) {
         try {
-            return await this.findElementBy(locator, locatorType, fromElement);
+            await this.findElementBy(locator, locatorType, fromElement);
+            return true;
         } catch (error) {
             return false;
         }
@@ -109,7 +110,8 @@ class SeleniumInfra {
 
     async URLvalidation(pageName) {
         try {
-            return await this.driver.wait(until.urlContains(pageName), 8000);
+            const isValid = await this.driver.wait(until.urlContains(pageName), 8000);
+            return isValid;
         } catch (error) {
             return false;
         }

@@ -27,14 +27,11 @@ class SeleniumInfra {
         }
     }
 
-    async clickElement(locator = "", locatorType = "id", element = null, fromElement = null){
+    async clickElement(locator = "", locatorType = "id", element = null, fromElement = null) {
         if (!element) {
-            try {
-                element = await this.findElementBy(locator, locatorType, fromElement);
-            } catch (error) {
-                return error;
-            }
+            element = await this.findElementBy(locator, locatorType, fromElement);
         }
+
         try {
             await element.click();
             await this.driver.sleep(2000);
@@ -45,11 +42,7 @@ class SeleniumInfra {
 
     async write(data = "", locator = "", locatorType = "id", element = null, fromElement = null) {
         if (!element) {
-            try {
-                element = await this.findElementBy(locator, locatorType, fromElement);
-            } catch (error) {
-                return error;
-            }
+            element = await this.findElementBy(locator, locatorType, fromElement);
         }
 
         try {
@@ -61,15 +54,11 @@ class SeleniumInfra {
 
     async getTextFromElement(locator = "", locatorType = "id", element = null, fromElement = null) {
         if (!element) {
-            try {
-                element = await this.findElementBy(locator, locatorType, fromElement);
-            } catch (error) {
-                return error;
-            }
+            element = await this.findElementBy(locator, locatorType, fromElement);
         }
 
         try {
-            return await element.getText();
+            return await element.getText();;
         } catch (error) {
             return Promise.reject(new Error(`SeleniumInfra: Could not GET TEXT from the element with:(${locator}), locatorType (${locatorType}).`));
         }
@@ -77,11 +66,7 @@ class SeleniumInfra {
 
     async clearElementField(locator = "", locatorType = "id", element = null, fromElement = null) {
         if (!element) {
-            try {
-                element = await this.findElementBy(locator, locatorType, fromElement);
-            } catch (error) {
-                return error;
-            }
+            element = await this.findElementBy(locator, locatorType, fromElement);
         }
 
         try {
