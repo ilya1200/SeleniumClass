@@ -10,9 +10,9 @@ async function runStorePageTests() {
 
 async function runHomePageTests() {
     const homeTest = new HomeTest();
-    // await homeTest.testVisitUs();
-    // await homeTest.testSearch("About");
-    // await homeTest.testSearch("cOntact");
+    await homeTest.testVisitUs();
+    await homeTest.testSearch("About");
+    await homeTest.testSearch("cOntact");
 
     homeTest.testAdvancedSearch();
 }
@@ -23,8 +23,8 @@ async function runProductsPageTests() {
 }
 
 async function myTests() {
-    // await runStorePageTests();
-    await runHomePageTests();
+    await runStorePageTests();
+    // await runHomePageTests();
     // await runProductsPageTests();
 }
 

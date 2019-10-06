@@ -106,7 +106,6 @@ class FilmsPage {
             console.error(new Error("FilmsPage>mapMoviesElemsToList() FAIL:"));
             console.error(error);
         }
-
     }
 
     async printFilmTabel() {

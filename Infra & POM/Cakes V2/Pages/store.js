@@ -41,13 +41,15 @@ class StorePage {
 
     getOpenHours(currentDay) {
         let openHour = "7:00";
-        let closeHour = "8:00";;
+        let closeHour = "8:00";
+
+
         if (currentDay === "Saturday") {
             openHour = "9:00";
             closeHour = "5:00";
         }
 
-        return{
+        return {
             openHour,
             closeHour
         }
@@ -55,8 +57,8 @@ class StorePage {
 
     async validateOpenTime() {
         const currentDay = moment().format('dddd');
-        const {openHour, closeHour} = this.getOpenHours(currentDay);
-        const expectedText = `${openHour} AM to ${closeHour} PM`;
+        const { openHour, closeHour } = this.getOpenHours(currentDay);
+        const expectedText = (currentDay === "Sunday") ? "Closed" : `${openHour} AM to ${closeHour} PM`;
 
         try {
             const todayInfoHours = await this.infraDriver.getTextFromElement(this.locators.todayInfo.locator(currentDay), this.locators.todayInfo.locatorType);
